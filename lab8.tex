@@ -170,7 +170,7 @@ Derive $\beta$:
 
 For non-inverting amplifier, $V_{+}=V_{-}$
 
-$V_{-}={R_{1}\over R_{1}+R_{2}}*V_{out}$
+$V_{-}=\frac{R_{1}}{R_{1}+R_{2}}*V_{out}$
 
 $\rightarrow the voltage gain \beta = {V_{out}\over V_{in}}={R_{1}\over R_{1}+R_{2}}$
 
@@ -245,89 +245,136 @@ $\beta = \frac{V_{-}}{V_{out}}=\frac{Z_{c}}{Z_{c}+R_{0}}=\frac{1}{1+i\omega R_{0
 
 \section{Activity III - The Op Amp Comparator}
 
-
 \begin{figure}[H]
  \begin{center}
-  \includegraphics[width=\linewidth/1]{act3bp}
-  \caption{The block diagram of the VI.}
-  \label{fig:act3bp}
+  \includegraphics[width=\linewidth/1]{act3}
+  \caption{}
+  \label{fig:act3}
  \end{center}
 \end{figure}
 
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act3bias2}
-  \caption{The front panel of the forward bias IV measurements.}
-  \label{fig:act3bias2}
- \end{center}
-\end{figure}
+From the figure above, $V_{out}=A_{0}(V_{ref}-V_{in})$ ($V_{ref}$ is the voltage of the "+" terminal of the op-amp)
+
+and $V_{ref}=V_{+}\frac{R_{2}}{R_{1}+R_{2}}$
+
+$\Rightarrow if V_{+}\frac{R_{2}}{R_{1}+R_{2}}<V_{in}$, the LED will light up.
+
+because the op-amp light up whenever $V_{in}>6V$, so
+
+$V_{+}\frac{R_{2}}{R_{1}+R_{2}}<6V$
+
+$\Rightarrow \frac{R_{2}}{R_{1}+R_{2}}<\frac{1}{2}$
+
+$\Rightarrow$ we chose $R_{1}=R_{2}=1 k \Omega$
+
+And we set $V_{pp}=2V, V_{DC}=4V$ as the offset, and the duration of the light became shorter.
+
+\section{Activity IV - The Schmitt Trigger}
+
+We found the equations in this website:
+
+http://hyperphysics.phy-astr.gsu.edu/hbase/Electronic/schmitt.html\#c1
+
+So now 
+
+$V_{out1}=\frac{R_{123}}{R_{1}}V_{+}+\frac{R_{123}}{R_{3}}V_{cc}=6V$
+
+$V_{out2}=\frac{R_{123}}{R_{1}}V_{+}-\frac{R_{123}}{R_{3}}V_{cc}=4V$
+
+$V_{cc}=V_{+}=12V$
+
+$R_{123}=R_{1}||R_{2}||R_{3}$
+
+$\Rightarrow$ if we choose $R_{2}=1k\Omega$
+
+$\Rightarrow R_{1}=1.2k\Omega, R_{3}=6k\Omega$
+
+And our Schmitt Trigger worked well. We observed the hysteresis, in our lab, when $V_{in}>5.88V$, the light is on, when $V_{in}<4.2V$, the light is off. And when $4.2V < V_{in} < 5.88V$, whether the light is on or off depends on whether it was on or off. If it was on, then it'll keep on; if it was off, then it'll keep off.
+
+\section{Activity V - Waveform Shaping with the Schmitt Trigger}
 
 \begin{figure}[H]
  \begin{center}
-  \includegraphics[width=\linewidth/1]{act3rev1}
-  \caption{The front panel of the reverse bias IV measurements.}
-  \label{fig:act3rev1}
- \end{center}
-\end{figure}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act3vv}
-  \caption{The image of the data for the voltage regulation circuit.}
-  \label{fig:act3vv}
- \end{center}
-\end{figure}
-
-\section{Activity V - Building and Characterizing Some Important Diode-Based Circuits}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act5bp}
-  \caption{The block diagram of the VI.}
-  \label{fig:act3bp}
- \end{center}
-\end{figure}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act5acapac100Hz}
-  \caption{The front panel of the half-wave rectifier with the capacitor(100Hz).}
-  \label{fig:act5acapac100Hz}
- \end{center}
-\end{figure}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act5anocapac100Hz}
-  \caption{The front panel of the half-wave rectifier without the capacitor(100Hz).}
-  \label{fig:act5anocapac100Hz}
- \end{center}
-\end{figure}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act5b10Hz4v-6v}
-  \caption{The front panel of the diode clipper(V1=4V, V2=-6V).}
-  \label{fig:act5b10Hz4v-6v}
- \end{center}
-\end{figure}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act5c10Hzcapac}
-  \caption{The front panel of the full-wave rectifier with the capacitor(10Hz).}
-  \label{fig:act5c10Hzcapac}
- \end{center}
-\end{figure}
-
-\begin{figure}[H]
- \begin{center}
-  \includegraphics[width=\linewidth/1]{act5c10Hznocapac}
-  \caption{The front panel of the full-wave rectifier without the capacitor(10Hz).}
-  \label{fig:act5c10Hznocapac}
+  \includegraphics[width=\linewidth/1]{act5}
+  \caption{Waveform shaping with the Schmitt Trigger}
+  \label{fig:act5}
  \end{center}
 \end{figure}
 
 
+\vbox{}
+
+From the figure above, we can see that the input signal is a sine wave and output is a square wave.
+
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=\linewidth/1]{act56}
+  \caption{}
+  \label{fig:act56}
+ \end{center}
+\end{figure}
+
+\vbox{}
+
+
+Because of the positive feedback to the non-inverting input, the output is saturated in either the positive or negative direction. Assume the output is positively saturated, then a positive voltage is fed back to the non-inverting input voltage. This positive voltage is called upper trip point(UTP). As long as the inverting input voltage is less than UTP, the output voltage remains positively saturated. 
+
+\vbox{}
+
+If we slowly increase the input voltage, we eventually reach a point where it is slightly positive than the UTP. When this happens, the error voltage changes polarity, driving the op-amp into negative saturation. With the output now negative, the voltage divided feeds back a negative voltage to the non-inverting input. This negative voltage is referred to as the lower trip point(LTP).
+
+\vbox{}
+
+The output remains in negative saturation as long as the input voltage is more negative than the LTP. The only way to change the output is to decrease the input voltage until it is slightly more negative than LTP. Then the error voltage changes polarity and the output switches back to positive saturation.
+
+\vbox{}
+
+So one way to generate square wave is to drive a Schmitt trigger with a sine wave whose positive peak is greater than the UTP and whose negative is peak is less than the LTP. The shape of the input signal is immaterial. Instead of a sine wave, any periodic signal with sufficient amplitude to drive the Schmitt trigger will result in an output square wave.
+
+\vbox{}
+
+That's how it works.
+
+\vbox{}
+
+The reference comes from:
+
+http://www.daenotes.com/electronics/digital-electronics/schmitt-trigger
+
+\section{Activity VI - The Relaxation Square-Wave Oscillator}
+
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=\linewidth/1]{act6}
+  \caption{The Relaxation Square-Wave Oscillator}
+  \label{fig:act6}
+ \end{center}
+\end{figure}
+
+From the picture above, we can see that the period is around 0.01s, and by using Eq.(4)
+
+$T=2RCln[\frac{R_{1}+2R_{2}}{R_{1}}]=2*10^3\Omega*3.3*10^{-6}F*ln5=0.0106s$
+
+which is consistent with our results.
+
+The derivation of Eq.4:
+
+let $\lambda=\frac{R_{2}}{R_{1}+R_{2}}$
+
+When $V_{1}$ reaches $+\lambda V_{cc}$, then the switch to $-V_{cc}$ at the output occurs. The capacitor has charged to $+\lambda CV_{cc}$ and now begins to discharge. The general charging equation for a capacitor which already has an original charge is:
+
+$q=CV[1-e^{-t/RC}]+q_{0}e^{-t/RC}$
+
+For this case $V=-V_{cc}$ and $q_{0}=\lambda CV_{cc}$ so the charging equation is 
+
+$q=CV_{cc}[1-e^{-t/RC}]+\lambda CV_{cc}e^{-t/RC}$
+
+Now when q gets to $-\lambda V_{cc}$ another switch will occur. This time is half the period of the wave so it will be represented by T/2. At this time
+
+$-\lambda CV_{cc}=-CV_{cc}[1-e^{-T/2RC}]+\lambda CV_{cc}e^{-T/2RC}$
+
+$\Rightarrow T=2RCln[\frac{1+\lambda}{1-\lambda}]=2RCln[\frac{R_{1}+2R_{2}}{R_{1}}]$
+
+We think the self-oscillating is because that the input voltage is easily affected by the adjacent rows.
 
 \end{document}
