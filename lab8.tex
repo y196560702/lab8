@@ -184,80 +184,66 @@ $\rightarrow A_{p}\geq {S\over 2\pi f}$
 \begin{figure}[H]
  \begin{center}
   \includegraphics[width=\linewidth/1]{act1falling}
-  \caption{The block diagram of the VI.}
+  \caption{The measurement of the falling time of the follower.}
   \label{fig:act1falling}
  \end{center}
 \end{figure}
 
 \begin{figure}[H]
  \begin{center}
-  \includegraphics[width=\linewidth/1]{act1rasing}
-  \caption{The front panel image for forward bias IV measurements.}
+  \includegraphics[width=\linewidth/1]{act1raising}
+  \caption{The measurement of the rise time of the follower.}
   \label{fig:act1raising}
  \end{center}
 \end{figure}
 
+From our plots, we got the rise time is 254ns, and the Vpp is 5V, so the slew rate is $S=5V/254ns=19.7V/\mu s$, which is consistent with what we expect compared to the value $12V/\mu s$ come from the data sheet.
+
+And the value of frequency for which distortion of the sinusoidal signal became noticeable is around 2.4MHz.
+
 \begin{figure}[H]
  \begin{center}
-  \includegraphics[width=\linewidth/1]{act1rev2}
-  \caption{The front panel image for reverse bias IV measurements.}
-  \label{fig:act1rev2}
+  \includegraphics[width=\linewidth/2]{act1Gain1}
+  \caption{The output signal response for the unity gain measurement of gain 1.}
+  \label{fig:act1Gain1}
  \end{center}
 \end{figure}
 
-$V_{\mathrm {s} }=5 V$
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=\linewidth/2]{act1Gain11}
+  \caption{The output signal response for the unity gain measurement of gain 11.}
+  \label{fig:act1Gain11}
+ \end{center}
+\end{figure}
 
-$V_{\mathrm {Dmax} }=0.58 V$
+\begin{figure}[H]
+ \begin{center}
+  \includegraphics[width=\linewidth/1]{act1Gain16}
+  \caption{The output signal response for the unity gain measurement of gain 16.}
+  \label{fig:act1Gain16}
+ \end{center}
+\end{figure}
 
-$I_{\mathrm {Dmax} }=1 mA$
-
-$R_{\mathrm {3} }=100 \Omega$
-
-$R_{\mathrm {2} }=470 \Omega$
-
-$R_{\mathrm {1} }=4700 \Omega$
-
-$\Rightarrow V_{\mathrm {R2} }=I_{\mathrm {Dmax} }*R_{\mathrm {3} }+V_{\mathrm {Dmax} }=0.1+0.58=0.68 V$
-
-$\Rightarrow I_{\mathrm {R2} }={\frac {V_{\mathrm {R2} }}{R_{\mathrm {2} }}}=0.68/470=1.447 mA $
-
-$\Rightarrow I_{\mathrm {total} }=I_{\mathrm {R2} }+I_{\mathrm {Dmax} }=1.447+1=2.447 mA $
-
-$\Rightarrow P_{\mathrm {smax} }=I_{\mathrm {total} }*V_{\mathrm {s} }=0.002447*5=0.012 w $ \\[1em]
-
-$ V_{\mathrm {R1} }=V_{\mathrm {s} }-V_{\mathrm {R2} }=5-0.68=4.32 V $
-
-$\Rightarrow P_{\mathrm {R1} }=I_{\mathrm {total} }*V_{\mathrm {R1} }=0.002447*4.32=0.0106 w $ \\[1em]
-
-$\Rightarrow P_{\mathrm {R2} }=I_{\mathrm {R2} }*V_{\mathrm {R2} }=0.001447*0.68=0.984 mw $ \\[1em]
-
-$P_{\mathrm {R3} }=I_{\mathrm {D} }^2*R_{\mathrm {3} }=0.001^2*100=0.1 mw $
-
-From the pictures, we can see that our knee voltage is around 0.45V, which is consistent with what we have read for the diode (0.7V$\sim{Silicon}$, 0.3V$\sim{Germanium}$). And the reverse saturation current is around 200 $\mu$ A, which we think is too large compared to what we expect.
+When gain=1, the settling time is 162ns, when gain=2,the settling time is 384ns, when gain=11, the settling time is 688ns, and when gain=16, the settling time is 980ns. The larger the gain, the more obvious the damping is. And by plug those values into equation (3), we found our results are consistent with the equation. For example, when gain=1, ft=2.4MHz, $t_{settle}=5*1/(2\pi *2.4)=331ns$
 
 
-
-\section{Activity II - Fitting Your IV Measurements to the Shockley Diode Equation Using a LabVIEW Least-Squares Fitting Function}
+\section{Activity II - Frequency Compensation, Op Amp Output Impedance and Op-Amp Instability}
 
 
 \begin{figure}[H]
  \begin{center}
-  \includegraphics[width=\linewidth/1]{act2}
-  \caption{The the front panel and block diagram for our fitting VI.}
-  \label{fig:act2}
+  \includegraphics[width=\linewidth/1]{selfoscillation}
+  \caption{self-oscillation.}
+  \label{fig:selfoscillation}
  \end{center}
 \end{figure}
 
-The unit of the y axis in this picture should be mA, we forgot to modify it. And our fitting equation is $y=a*(e^{bx}-1)$, so if we compare that to $I_{\mathrm {D} }=I_{\mathrm {s} }*(e^{V_{\mathrm {D} }/ \eta V_{\mathrm {T} }}-1)$, we'll find that $I_{\mathrm {s} }=a=3.4 nA$ and $\eta=1/{bV_{\mathrm {T} }}=1/{21.92*0.026}=1.75$, which is consistent with what we expect($ \eta \approx 2$ and $I_{\mathrm {s} }\sim 1-5 nA$).
+We found that if we use the LF356, we couldn't observe the self oscillation. We saw the self oscillation when the instructor used another op-amp (AD829JN) after two weeks. We chose the capacitance as 1 $\mu$F, and we found that the implementation of a decoupling resistor (we chose 1 k$\Omega$) helps eliminate the oscillations. And for $\beta$:
 
-PS: $T=300k$
+$\beta = \frac{V_{-}}{V_{out}}=\frac{Z_{c}}{Z_{c}+R_{0}}=\frac{1}{1+i\omega R_{0}C}$
 
-$V_{\mathrm {T} }=k_{\mathrm {B} }T/e=1.38064852*10^{-23}*300/(1.6*10^{-19})=0.026$
-
-
-
-\section{Activity III - Measuring the Characteristics of the 1N4735A Zener Diode}
-
+\section{Activity III - The Op Amp Comparator}
 
 
 \begin{figure}[H]
